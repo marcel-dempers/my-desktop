@@ -15,7 +15,7 @@ docker run -d \
 --memory 1024mb \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 -v $HOME/Applications/contained/chrome/profile/:/data \
--e DISPLAY=unix$DISPLAY \
+-e DISPLAY=unix\$DISPLAY \
 -v $HOME/Downloads:/home/chrome/Downloads \
 --device /dev/snd:/dev/snd \
 --device /dev/dri \

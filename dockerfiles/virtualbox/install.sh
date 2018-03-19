@@ -8,7 +8,7 @@ alias vbox='xhost local:root
 docker run -d --rm \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 -v /dev/vboxdrv:/dev/vboxdrv \
--e DISPLAY=unix$DISPLAY \
+-e DISPLAY=unix\$DISPLAY \
 --privileged \
 -v /dev/:/dev/ \
 -v ~/Applications/contained/vbox/machines:\"/root/VirtualBox VMs\" \

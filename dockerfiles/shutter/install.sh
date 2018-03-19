@@ -11,7 +11,7 @@ docker run -d \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 -v $HOME/Applications/contained/shutter/.shutter/:/root/.shutter \
 -v $HOME/Applications/contained/shutter/plugins/:/usr/share/shutter/resources/system/plugins \
--e DISPLAY=unix$DISPLAY \
+-e DISPLAY=unix\$DISPLAY \
 -v $HOME/Pictures:/home/root/Pictures \
 --name shutter \
 aimvector/shutter'

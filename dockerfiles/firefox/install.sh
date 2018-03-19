@@ -15,7 +15,7 @@ docker run -d \
 --memory 512mb \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 -v $HOME/Applications/contained/firefox/data:/root/.mozilla \
--e DISPLAY=unix$DISPLAY \
+-e DISPLAY=unix\$DISPLAY \
 -v $HOME/Downloads:/home/root/Downloads \
 --device /dev/snd \
 --device /dev/dri \
