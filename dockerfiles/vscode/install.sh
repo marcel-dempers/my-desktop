@@ -15,5 +15,5 @@ docker run -d \
 -e DISPLAY=unix\$DISPLAY \
 --device /dev/dri \
 -v /dev/shm:/dev/shm \
-jess/vscode'
+aimvector/vscode'
 " >> ~/.bashrc
