@@ -11,6 +11,7 @@ alias peek='xhost local:root
 docker run --rm -d \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 -v /var/run/dbus:/var/run/dbus \
+-v \$HOME/Pictures:/home/root/Pictures \
 -e DISPLAY=unix\$DISPLAY \
 aimvector/peek peek'
 " >> ~/.bashrc
