@@ -13,7 +13,7 @@ RUN apt-get update && \
 RUN apt-get install -y git \
     cmake \
     valac \
-    ffmpeg \
+    gstreamer1.0-plugins-good \
     libgtk-3-dev \
     libkeybinder-3.0-dev \libxml2-utils \
     gettext \
