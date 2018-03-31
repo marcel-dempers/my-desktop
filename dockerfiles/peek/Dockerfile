@@ -25,3 +25,5 @@ RUN git clone https://github.com/phw/peek.git && \
     cmake -DCMAKE_INSTALL_PREFIX=/usr -DGSETTINGS_COMPILE=OFF .. && \
     make package && \
     dpkg -i peek-*-Linux.deb
+
+CMD [ peek ]
