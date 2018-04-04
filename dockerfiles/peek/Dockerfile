@@ -10,20 +10,25 @@ RUN echo deb http://www.deb-multimedia.org stable main stretch \
 RUN apt-get update && \
     apt-get install -y ffmpeg
 
-RUN apt-get install -y git \
+RUN apt-get install -y wget \
     cmake \
+    dbus-x11 \
     valac \
     gstreamer1.0-plugins-good \
     libgtk-3-dev \
+    libcanberra-gtk-module \
+    libcanberra-gtk3-module \
     libkeybinder-3.0-dev \libxml2-utils \
     gettext \
     txt2man
 
-RUN git clone https://github.com/phw/peek.git && \
-    mkdir peek/build && \
-    cd peek/build && \
+RUN wget https://github.com/phw/peek/archive/1.3.1.tar.gz && \
+    tar -xzf 1.3.1.tar.gz && \
+    rm 1.3.1.tar.gz && \
+    mkdir peek-1.3.1/build && \
+    cd peek-1.3.1/build && \
     cmake -DCMAKE_INSTALL_PREFIX=/usr -DGSETTINGS_COMPILE=OFF .. && \
     make package && \
     dpkg -i peek-*-Linux.deb
-
+    
 CMD [ peek ]
