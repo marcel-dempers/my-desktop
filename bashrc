@@ -62,3 +62,7 @@ alias test="docker run -it --rm ubuntu:trusty parsevs_args"
 alias peek='xhost local:root
 docker run --rm -d -v /tmp/.X11-unix:/tmp/.X11-unix --device /dev/video0:/dev/video0 -v /var/run:/var/run --device /dev/dri -v $HOME/Pictures:/home/root/Pictures -e DISPLAY=unix$DISPLAY aimvector/peek peek'
 
+#meld containerd.
+alias meld='xhost local:root
+docker run -d --rm --net host -v /tmp/.X11-unix:/tmp/.X11-unit -e DISPLAY=unix$DISPLAY -v $PWD:/root/compare aimvector/meld meld'
+
