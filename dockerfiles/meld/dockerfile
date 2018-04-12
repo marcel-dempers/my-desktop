@@ -1,0 +1,8 @@
+FROM debian:buster
+
+RUN echo deb http://ftp.debian.org/debian/ stable main contrib non-free >> /etc/apt/sources.list && \
+	echo deb http://ftp.de.debian.org/debian jessie main >> /etc/apt/sources.list && \ 
+	apt-get update && apt-get install -y meld
+
+ENTRYPOINT ["meld"]
+
