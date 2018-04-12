@@ -13,6 +13,7 @@ docker run -d \
 --net host \
 --cpuset-cpus 2 \
 --memory 1024mb \
+-v /etc/localtime:/etc/localtime:ro \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 -v $HOME/Applications/contained/chrome/profile/:/data \
 -e DISPLAY=unix\$DISPLAY \
