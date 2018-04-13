@@ -18,6 +18,12 @@ docker run -d --rm \
 aimvector/virtualbox'
 " >> ~/.bashrc
 
+# Make sure virtual box is not running on the host :
+#   sudo apt autoremove --purge virtualbox*
+#   dpkg -l virtualbox* | grep ^i
+# Clean up /etc/apt/sources.list
+
+
 # On first run it will throw an error that you need to
 # recompile the kernel module with: /etc/init.d/vboxdrv setup
 #
