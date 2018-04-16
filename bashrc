@@ -48,15 +48,15 @@ alias powershell='docker run -it --rm --net host jess/powershell'
 
 #vscode contained.
 alias vs='xhost local:root
-docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Applications/contained/vscode/:/home/user -v /home/marcel/git:/home/user/git -v /home/marcel/personal/git:/home/user/personal/git -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/vscode'
+docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Downloads:/home/user/Downloads -v /home/marcel/Applications/contained/vscode/:/home/user -v /home/marcel/git:/home/user/git -v /home/marcel/personal/git:/home/user/personal/git -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/vscode'
 
-
-function parsevs_args(){
-echo "args: $1"
+#Trying to run visual studio and pass directory
+d () {
+  args=${1:.}
+  xhost local:root
+  docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Downloads:/home/user/Downloads -v /home/marcel/Applications/contained/vscode/:/home/user -v /home/marcel/git:/home/user/git -v /home/marcel/personal/git:/home/user/personal/git -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/vscode $args
 }
-
-alias test="docker run -it --rm ubuntu:trusty parsevs_args"
-
+alias test='d()'
 
 #peek contained.
 alias peek='xhost local:root
