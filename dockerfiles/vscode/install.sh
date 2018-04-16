@@ -12,6 +12,7 @@ docker run -d \
 -v $HOME/Applications/contained/vscode/:/home/user \
 -v $HOME/git:/home/user/git \
 -v $HOME/personal/git:/home/user/personal/git \
+-v $HOME/Downloads:/home/user/Downloads \
 -e DISPLAY=unix\$DISPLAY \
 --device /dev/dri \
 -v /dev/shm:/dev/shm \
