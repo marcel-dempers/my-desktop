@@ -30,12 +30,13 @@ RUN apt-get update && apt-get install -y \
 
 # Add chrome user
 RUN groupadd -r chrome && useradd -r -g chrome -G audio,video chrome \
-    && mkdir -p /home/chrome/Downloads && chown -R chrome:chrome /home/chrome && mkdir /data && chown -R chrome:chrome /data && adduser chrome sudo
+    && mkdir -p /home/chrome/Downloads && chown -R chrome:chrome /home/chrome
 
 COPY local.conf /etc/fonts/local.conf
-COPY start.sh /src/start.sh
-RUN chmod +x /src/start.sh
+
+# Run Chrome as non privileged user
+USER chrome
 
 # Autorun chrome
-CMD ["./src/start.sh"]
-
+ENTRYPOINT [ "google-chrome" ]
+CMD [ "--user-data-dir=/data" ]
