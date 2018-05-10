@@ -1,0 +1,39 @@
+FROM ubuntu:17.10
+
+RUN apt-get update && apt-get install -y \
+    libglib2.0-0 \
+    libgstreamer-plugins-base1.0-dev  \
+    libxcb-shape0 \
+    libxcb-shm0 \
+    libxcb-xfixes0 \
+    libxcb-randr0 \
+    libxcb-image0 \
+    libfontconfig1 \
+    libegl1-mesa \
+    libgl1-mesa-glx \
+    libxi6 \
+    libsm6 \
+    libxrender1 \
+    libpulse0 \
+    libxcomposite1 \
+    libxslt1.1 \
+    libsqlite3-0 \
+    libxcb-keysyms1 \
+    libxcb-xtest0 \
+    curl \
+    sudo
+
+RUN apt-get update && apt-get install -y libxcursor-dev libxtst-dev libxrandr-dev libasound2-dev
+
+ARG ZOOM_URL=https://zoom.us/client/latest/zoom_amd64.deb
+
+RUN curl -sSL $ZOOM_URL -o /tmp/zoom_setup.deb
+RUN dpkg -i /tmp/zoom_setup.deb
+RUN apt-get -f install
+RUN rm /tmp/zoom_setup.deb \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY entrypoint.sh /sbin/entrypoint.sh
+RUN chmod 755 /sbin/entrypoint.sh
+
+ENTRYPOINT ["/sbin/entrypoint.sh"]

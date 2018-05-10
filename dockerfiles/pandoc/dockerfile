@@ -1,0 +1,18 @@
+FROM alpine:3.7
+
+RUN apk add --no-cache wget
+
+ENV VERSION=2.1.3
+
+RUN wget https://github.com/jgm/pandoc/releases/download/$VERSION/pandoc-$VERSION-linux.tar.gz && \
+    tar -xzf pandoc-$VERSION-linux.tar.gz && \
+    rm pandoc-$VERSION-linux.tar.gz && \
+    mkdir /pandoc && \
+    mv pandoc-$VERSION/bin/pandoc /usr/local/bin/pandoc && \
+    chmod +x usr/local/bin/pandoc
+
+VOLUME /convert
+
+WORKDIR /convert
+
+ENTRYPOINT ["pandoc"]
