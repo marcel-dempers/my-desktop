@@ -1,0 +1,32 @@
+version: "3"
+services:
+  chrome:
+    build: ./chrome
+    image: aimvector/chrome
+  jmeter:
+    build: ./jmeter
+    image: aimvector/jmeter
+  meld:
+    build: ./meld
+    image: aimvector/meld
+  pandoc:
+    build: ./pandoc
+    image: aimvector/pandoc
+  peek:
+    build: ./peek
+    image: aimvector/peek
+  postman:
+    build: ./postman
+    image: aimvector/postman
+  shutter:
+    build: ./shutter
+    image: aimvector/shutter
+  virtualbox:
+    build: ./virtualbox
+    image: aimvector/virtualbox
+  vscode:
+    build: ./vscode
+    image: aimvector/vscode
+  zoom:
+    build: ./zoom
+    image: aimvector/zoom
