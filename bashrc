@@ -1,5 +1,5 @@
 
-alias kubetools='docker run -it --rm  -v ~/.azure:/root/.azure -v $PWD:/var/lib/src -v ~/.kube:/root/.kube --rm --network=host --workdir /var/lib/src aimvector/kube-tools'
+alias kubetools='docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v ~/.azure:/root/.azure -v $PWD:/var/lib/src -v ~/.kube:/root/.kube --rm --network=host --workdir /var/lib/src aimvector/kube-tools'
 
 alias flushdns='sudo systemd-resolve --flush-caches'
 
@@ -50,7 +50,7 @@ alias powershell='docker run -it --rm --net host jess/powershell'
 alias vs='xhost local:root
 docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Downloads:/home/user/Downloads -v /home/marcel/Applications/contained/vscode/:/home/user -v /home/marcel/git:/home/user/git -v /home/marcel/personal/git:/home/user/personal/git -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/vscode'
 
-#Trying to run visual studio and pass directory
+
 d () {
   args=${1:.}
   xhost local:root
@@ -65,4 +65,12 @@ docker run --rm -d -v /tmp/.X11-unix:/tmp/.X11-unix --device /dev/video0:/dev/vi
 #meld containerd.
 alias meld='xhost local:root
 docker run -d --rm --net host -v /tmp/.X11-unix:/tmp/.X11-unit -e DISPLAY=unix$DISPLAY -v $PWD:/root/compare aimvector/meld meld'
+
+
+#pandoc contained.
+alias pandoc='docker run -it --rm -v $PWD:/convert aimvector/pandoc'
+
+#fiddler contained.
+alias fiddler='xhost local:root
+docker run -d --name fiddler --rm -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Applications/contained/fiddler/:/root/.mono/ --device /dev/dri -p 8888:8888 -v /dev/shm:/dev/shm -e DISPLAY=unix$DISPLAY aimvector/fiddler'
 
