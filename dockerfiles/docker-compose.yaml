@@ -3,6 +3,9 @@ services:
   chrome:
     build: ./chrome
     image: aimvector/chrome
+  fiddler:
+    build: ./fiddler
+    image: aimvector/fiddler
   jmeter:
     build: ./jmeter
     image: aimvector/jmeter
