@@ -1,0 +1,14 @@
+FROM alpine:3.7
+
+RUN apk add --no-cache wget
+
+ENV VERSION=6.3.0
+RUN wget https://github.com/tsenart/vegeta/releases/download/v${VERSION}/vegeta-v${VERSION}-linux-amd64.tar.gz -O vegeta.tar.gz && tar -xzf vegeta.tar.gz && ls
+
+ENV PATH="/vegeta:${PATH}"
+
+# configure
+VOLUME [ "/data" ]
+WORKDIR /data
+
+ENTRYPOINT ["/vegeta"]

@@ -1,0 +1,24 @@
+FROM debian:buster as build
+
+#New version of wget
+RUN apt-get update && apt-get install -y wget \
+	build-essential libssl-dev make git
+
+ENV VERSION=4.1.0
+
+#Get code and build it
+RUN mkdir /temp && \
+     	cd /temp && \
+        git clone https://github.com/wg/wrk.git wrk && \
+	cd wrk && git checkout tags/${VERSION} && \
+	make
+
+#Clean up and ship binary
+RUN cd /temp/wrk && mkdir /wrk && cp wrk /usr/local/bin && \
+	rm -rf /temp
+
+VOLUME [ /wrk ]
+
+WORKDIR /wrk
+
+ENTRYPOINT [ "/usr/local/bin/wrk" ]
