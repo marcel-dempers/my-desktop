@@ -1,0 +1,17 @@
+FROM aimvector/kube-tools
+
+ENV VERSION 0.18.3
+ENV DOWNLOADURL https://github.com/Azure/acs-engine/releases/download/v${VERSION}/acs-engine-v${VERSION}-linux-amd64.tar.gz
+
+RUN mkdir /temp && \
+    cd /temp && \
+    wget -q $DOWNLOADURL -O acs-engine.tar.gz && \
+    tar -xzf acs-engine.tar.gz && \
+    mkdir /acs && cp acs-engine-v${VERSION}-linux-amd64/acs-engine /acs/ && \
+    chmod +x /acs/acs-engine
+
+WORKDIR /acs 
+
+ENTRYPOINT [ "./acs-engine" ]
+ 
+    
