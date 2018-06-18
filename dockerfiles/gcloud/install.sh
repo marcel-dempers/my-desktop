@@ -10,5 +10,6 @@ echo "
 alias g='docker run -it \
 --rm \
 -v $HOME/Applications/contained/gcloud:/root/.config/gcloud \
+-v ~/.kube:/root/.kube \
 aimvector/gcloud'
 " >> ~/.bashrc
