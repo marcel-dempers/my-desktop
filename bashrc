@@ -1,5 +1,5 @@
 
-alias kubetools='docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock -v ~/.azure:/root/.azure -v $PWD:/var/lib/src -v ~/.kube:/root/.kube --rm --network=host --workdir /var/lib/src aimvector/kube-tools'
+alias kubetools='docker run -it --rm -v /home/marcel/Applications/contained/gcloud:/root/.config/gcloud -e GOOGLE_APPLICATION_CREDENTIALS=/root/.config/gcloud/credentials.json -v /var/run/docker.sock:/var/run/docker.sock -v ~/.azure:/root/.azure -v $PWD:/kubetools -v ~/.kube:/root/.kube --rm --network=host --workdir /kubetools aimvector/kube-tools'
 
 alias flushdns='sudo systemd-resolve --flush-caches'
 
@@ -10,7 +10,7 @@ docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --de
 
 #chrome contained.
 alias chrome='xhost local:root
-docker run -d --rm --net host --cpuset-cpus 2 --memory 1024mb -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Applications/contained/chrome/profile/:/data -e DISPLAY=unix$DISPLAY -v /home/marcel/Downloads:/home/chrome/Downloads --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name chrome aimvector/chrome'
+docker run -d --rm --net host -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Applications/contained/chrome/profile/:/data -e DISPLAY=unix$DISPLAY -v /home/marcel/Downloads:/home/chrome/Downloads --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name chrome aimvector/chrome'
 
 
 #skype contained.
@@ -73,4 +73,22 @@ alias pandoc='docker run -it --rm -v $PWD:/convert aimvector/pandoc'
 #fiddler contained.
 alias fiddler='xhost local:root
 docker run -d --name fiddler --rm -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Applications/contained/fiddler/:/root/.mono/ --device /dev/dri -p 8888:8888 -v /dev/shm:/dev/shm -e DISPLAY=unix$DISPLAY aimvector/fiddler'
+
+
+#wrk contained.
+alias wrk='docker run -it --rm --net host -v /home/marcel/Applications/contained/wrk/:/data -v /home/marcel/personal/git/my-desktop/dockerfiles/wrk:/wrk aimvector/wrk'
+
+#vegeta contained.
+alias vegeta='docker run -it --rm --net host -v /home/marcel/personal/git/my-desktop/dockerfiles/vegeta:/data aimvector/vegeta'
+
+
+#ab contained.
+alias ab='docker run -it --rm aimvector/ab'
+
+#cups contained.
+alias cups='xhost local:root
+docker run -d --rm --net host -v /etc/localtime:/etc/localtime:ro -v /var/run/dbus:/var/run/dbus -p 631:631 --name cups-server aimvector/cups-server'
+
+#gcloud contained.
+alias g='docker run -it --rm -v /home/marcel/Applications/contained/gcloud:/root/.config/gcloud -v ~/.kube:/root/.kube aimvector/gcloud'
 
