@@ -92,3 +92,5 @@ docker run -d --rm --net host -v /etc/localtime:/etc/localtime:ro -v /var/run/db
 #gcloud contained.
 alias g='docker run -it --rm -v /home/marcel/Applications/contained/gcloud:/root/.config/gcloud -v ~/.kube:/root/.kube aimvector/gcloud'
 
+#requestbin contained.
+alias requestbin='docker run -d --rm -p 8080:8080 jess/requestbin'
