@@ -6,6 +6,9 @@ services:
   fiddler:
     build: ./fiddler
     image: aimvector/fiddler
+  gpick:
+    build: ./gpick
+    image: aimvector/gpick
   jmeter:
     build: ./jmeter
     image: aimvector/jmeter
