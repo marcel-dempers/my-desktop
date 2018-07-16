@@ -94,3 +94,10 @@ alias g='docker run -it --rm -v /home/marcel/Applications/contained/gcloud:/root
 
 #requestbin contained.
 alias requestbin='docker run -d --rm -p 8080:8080 jess/requestbin'
+
+#gpick contained.
+alias gpick='xhost local:root
+docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY aimvector/gpick'
+
+alias colorpicker=gpick
+alias colorpic=gpick
