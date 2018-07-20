@@ -6,59 +6,8 @@ This repo is inspired by Jessie Frazelle [dockerfiles](https://github.com/jessfr
 Some of my apps are just bashrc aliases to her docker images on hub.docker.com
 Other images I have had to hack around and made few tweaks :)
 
-## Chrome
+## Containers
 
-```
-cd /dockerfiles/chrome
-./install.sh
-```
+All apps are under `dockerfiles` folder. Every app has a `install.sh` which will put an alias into your `bashrc` so you can run the container.
 
-## Firefox
-
-```
-cd /dockerfiles/firefox
-./install.sh
-```
-
-## Postman
-
-```
-cd /dockerfiles/postman
-./install.sh
-```
-## Skype
-
-```
-cd /dockerfiles/skype
-./install.sh
-```
-Note: For skype there is some extra magic required.
-Once the container is running you have to start it manually.
-For some reason, docker stops the container when skype is started automatically. 
-
-```
-docker exec -it skype bash
-exec sudo -u skype skypeforlinux
-
-```
-
-## Virtualbox
-
-```
-cd /dockerfiles/virtualbox
-./install.sh
-```
-
-## Visual Studio
-
-```
-cd /dockerfiles/vscode
-./install.sh
-```
-
-## Zoom US
-
-```
-cd /dockerfiles/zoom
-./install.sh
-```
+I also maintain my bashrc in this repo.
