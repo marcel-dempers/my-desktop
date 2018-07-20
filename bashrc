@@ -76,7 +76,7 @@ docker run -d --name fiddler --rm -v /etc/localtime:/etc/localtime:ro -v /tmp/.X
 
 
 #wrk contained.
-alias wrk='docker run -it --rm --net host -v /home/marcel/Applications/contained/wrk/:/data -v /home/marcel/personal/git/my-desktop/dockerfiles/wrk:/wrk aimvector/wrk'
+alias wrk='docker run -it --rm --net host -v $PWD:/wrk aimvector/wrk'
 
 #vegeta contained.
 alias vegeta='docker run -it --rm --net host -v /home/marcel/personal/git/my-desktop/dockerfiles/vegeta:/data aimvector/vegeta'

@@ -10,7 +10,6 @@ echo "
 alias wrk='docker run -it \
 --rm \
 --net host \
--v $HOME/Applications/contained/wrk/:/data \
--v $PWD:/wrk \
+-v \$PWD:/wrk \
 aimvector/wrk'
 " >> ~/.bashrc
