@@ -1,0 +1,24 @@
+FROM debian:sid
+RUN apt-get update && apt-get install -y wget \
+	libcanberra-gtk* \
+	libunwind8 \
+    libnotify4 \
+    libnss3 \
+    libxkbfile1 \
+    libgconf-2-4 \
+    libsecret-1-0 \
+    libxss1 \
+    bash
+
+RUN mkdir /install && cd /install && \
+	wget -O install.tar.gz "https://azuredatastudiobuilds.blob.core.windows.net/releases/1.0.0/azuredatastudio-linux-1.0.0.tar.gz" && \
+    tar -xvf install.tar.gz
+
+COPY start.sh /install/start.sh
+
+RUN chmod +x /install/start.sh
+
+CMD /install/start.sh
+
+
+#docker run -it --net host -v /etc/localtime:/etc/localtime:ro --device /dev/dri -v /dev/shm:/dev/shm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY aimvector/az-datastudio
