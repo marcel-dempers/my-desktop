@@ -76,7 +76,7 @@ docker run -d --name fiddler --rm -v /etc/localtime:/etc/localtime:ro -v /tmp/.X
 
 
 #wrk contained.
-alias wrk='docker run -it --rm --net host -v $PWD:/wrk aimvector/wrk'
+alias wrk='docker run -it --rm --net host -v /home/marcel/Applications/contained/wrk/:/data -v /home/marcel/personal/git/my-desktop/dockerfiles/wrk:/wrk aimvector/wrk'
 
 #vegeta contained.
 alias vegeta='docker run -it --rm --net host -v /home/marcel/personal/git/my-desktop/dockerfiles/vegeta:/data aimvector/vegeta'
@@ -101,3 +101,12 @@ docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY aimv
 
 alias colorpicker=gpick
 alias colorpic=gpick
+
+#discord contained.
+alias discord='xhost local:root
+docker run -d --rm -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Applications/contained/discord/config:/root/.config/discord/ -e DISPLAY=unix$DISPLAY -v /home/marcel/Downloads:/home/root/Downloads --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm aimvector/discord'
+
+#sqlops contained.
+alias sqlops='xhost local:root
+docker run -d --net host -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/az-datastudio'
+
