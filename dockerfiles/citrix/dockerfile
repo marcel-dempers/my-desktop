@@ -1,0 +1,28 @@
+FROM ubuntu:14.04
+RUN apt-get update && apt-get install -y wget \
+    apt-transport-https \
+	ca-certificates \
+    bash \
+	libcanberra-gtk* \
+    libxmu6 \
+    libxpm4 \
+    libwebkit-dev \
+    libwebkitgtk-1.0-0
+
+RUN mkdir /citrix && cd /citrix && \
+	wget -O citrix.deb "https://downloads.citrix.com/14822/icaclient_13.10.0.20_amd64.deb?__gda__=1538438773_0a6863d69c83e6bcbfd1a23051839c60" && \
+	dpkg -i citrix.deb
+
+ENTRYPOINT /bin/bash
+# libasound2 \
+	# libatomic1 \
+	# libgconf-2-4 \
+ 	# libnotify4 \
+	# libnspr4 \
+	# libx11-xcb1 \
+    #     libxss1 \
+	# libnss3 \
+	# libnss3 \
+	# libnss3 \
+	# libappindicator1 \
+	# libc++1
