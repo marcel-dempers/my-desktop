@@ -1,5 +1,5 @@
 
-alias kubetools='docker run -it --rm -v /home/marcel/Applications/contained/gcloud:/root/.config/gcloud -e GOOGLE_APPLICATION_CREDENTIALS=/root/.config/gcloud/credentials.json -v /var/run/docker.sock:/var/run/docker.sock -v ~/.azure:/root/.azure -v $PWD:/kubetools -v ~/.kube:/root/.kube --rm --network=host --workdir /kubetools aimvector/kube-tools'
+alias kubetools='docker run -it --rm -v /home/marcel/.minikube:/home/marcel/.minikube -v /home/marcel/Applications/contained/gcloud:/root/.config/gcloud -e GOOGLE_APPLICATION_CREDENTIALS=/root/.config/gcloud/credentials.json -v /var/run/docker.sock:/var/run/docker.sock -v ~/.azure:/root/.azure -v $PWD:/kubetools -v ~/.kube:/root/.kube --rm --network=host --workdir /kubetools aimvector/kube-tools'
 
 alias flushdns='sudo systemd-resolve --flush-caches'
 
@@ -29,7 +29,7 @@ docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/vboxdrv:/dev/vboxdrv
 
 #firefox contained.
 alias firefox='xhost local:root
-docker run -d --rm --net host --cpuset-cpus 1 --memory 512mb -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Applications/contained/firefox/data:/root/.mozilla -e DISPLAY=unix$DISPLAY -v /home/marcel/Downloads:/root/Downloads --device /dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name firefox jess/firefox'
+docker run -d --rm --net host --cpuset-cpus 1 --memory 512mb -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Applications/contained/firefox/data:/root/.mozilla -e DISPLAY=unix$DISPLAY -v /home/marcel/Downloads:/root/Downloads --device /dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name firefox aimvector/firefox'
 
 
 #shutter contained.
@@ -109,4 +109,9 @@ docker run -d --rm -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X
 #sqlops contained.
 alias sqlops='xhost local:root
 docker run -d --net host -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/az-datastudio'
+
+
+#slack contained.
+alias slack='xhost local:root
+docker run -d --rm -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --device /dev/snd --device /dev/dri --device /dev/video0 --group-add audio --group-add video --ipc=host -v /home/marcel/Applications/contained/slack:/root/.config/Slack -v /home/marcel/Downloads:/home/root/Downloads aimvector/slack'
 
