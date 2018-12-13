@@ -6,6 +6,7 @@ RUN set -x \
 		curl \
 		ca-certificates \
 		tar \
+		bash \
 	&& curl -sSL -o /tmp/google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${VERSION}-linux-x86_64.tar.gz \
 	&& mkdir -p /usr/src/google-cloud-sdk \
 	&& tar -xzf /tmp/google-cloud-sdk.tar.gz -C /usr/src/google-cloud-sdk --strip-components 1 \
@@ -18,7 +19,8 @@ RUN set -x \
 	) \
 	&& apk del .build-deps
 
-WORKDIR /root
+RUN mkdir /work
+WORKDIR /work
 ENV PATH $PATH:/usr/src/google-cloud-sdk/bin
 
 ENTRYPOINT ["gcloud"]
