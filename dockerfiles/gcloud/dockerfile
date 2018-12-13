@@ -1,12 +1,13 @@
 FROM python:2-alpine
 
+RUN apk update && apk add --no-cache bash
+
 ENV VERSION 204.0.0
 RUN set -x \
 	&& apk add --no-cache --virtual .build-deps \
 		curl \
 		ca-certificates \
 		tar \
-		bash \
 	&& curl -sSL -o /tmp/google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${VERSION}-linux-x86_64.tar.gz \
 	&& mkdir -p /usr/src/google-cloud-sdk \
 	&& tar -xzf /tmp/google-cloud-sdk.tar.gz -C /usr/src/google-cloud-sdk --strip-components 1 \

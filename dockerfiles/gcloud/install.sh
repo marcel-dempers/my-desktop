@@ -12,5 +12,6 @@ alias g='docker run -it \
 -v $HOME/Applications/contained/gcloud:/root/.config/gcloud \
 -v \$PWD:/work \
 -v ~/.kube:/root/.kube \
+--entrypoint \"bash\" \
 aimvector/gcloud'
 alias gcloud=g" >> ~/.bashrc
