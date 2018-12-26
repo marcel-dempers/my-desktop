@@ -24,12 +24,12 @@ docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --ne
 
 #vbox contained.
 alias vbox='xhost local:root
-docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/vboxdrv:/dev/vboxdrv -e DISPLAY=unix$DISPLAY --privileged -v /dev/:/dev/ -v ~/Applications/contained/vbox/machines:"/root/VirtualBox VMs" -v ~/Applications/contained/vbox/.config:/root/.config/VirtualBox -v ~/Downloads:/images --name virtualbox vbox'
+docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/vboxdrv:/dev/vboxdrv -e DISPLAY=unix$DISPLAY --privileged -v /dev/:/dev/ -v ~/Applications/contained/vbox/machines:"/root/VirtualBox VMs" -v ~/Applications/contained/vbox/.config:/root/.config/VirtualBox -v ~/Downloads:/images --name virtualbox aimvector/virtualbox'
 
 
 #firefox contained.
 alias firefox='xhost local:root
-docker run -d --rm --net host --cpuset-cpus 1 --memory 512mb -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Applications/contained/firefox/data:/root/.mozilla -e DISPLAY=unix$DISPLAY -v /home/marcel/Downloads:/root/Downloads --device /dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name firefox aimvector/firefox'
+docker run -d --rm --net host -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Applications/contained/firefox/data:/root/.mozilla -e DISPLAY=unix$DISPLAY -v /home/marcel/Downloads:/root/Downloads --device /dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name firefox aimvector/firefox'
 
 
 #shutter contained.
@@ -48,7 +48,7 @@ alias powershell='docker run -it --rm --net host jess/powershell'
 
 #vscode contained.
 alias vs='xhost local:root
-docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Downloads:/home/user/Downloads -v /home/marcel/Applications/contained/vscode/:/home/user -v /home/marcel/git:/home/user/git -v /home/marcel/personal/git:/home/user/personal/git -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/vscode'
+docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Downloads:/home/user/Downloads -v /home/marcel/Applications/contained/vscode/:/home/user -v /home/marcel/git:/home/user/git -v /home/marcel/personal/git:/home/user/personal/git -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/vscode:test'
 
 
 d () {
@@ -89,9 +89,6 @@ alias ab='docker run -it --rm aimvector/ab'
 alias cups='xhost local:root
 docker run -d --rm --net host -v /etc/localtime:/etc/localtime:ro -v /var/run/dbus:/var/run/dbus -p 631:631 --name cups-server aimvector/cups-server'
 
-#gcloud contained.
-alias g='docker run -it --rm -v /home/marcel/Applications/contained/gcloud:/root/.config/gcloud -v ~/.kube:/root/.kube aimvector/gcloud'
-
 #requestbin contained.
 alias requestbin='docker run -d --rm -p 8080:8080 jess/requestbin'
 
@@ -106,12 +103,21 @@ alias colorpic=gpick
 alias discord='xhost local:root
 docker run -d --rm -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Applications/contained/discord/config:/root/.config/discord/ -e DISPLAY=unix$DISPLAY -v /home/marcel/Downloads:/home/root/Downloads --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm aimvector/discord'
 
-#sqlops contained.
-alias sqlops='xhost local:root
-docker run -d --net host -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/az-datastudio'
-
-
 #slack contained.
 alias slack='xhost local:root
 docker run -d --rm -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --device /dev/snd --device /dev/dri --device /dev/video0 --group-add audio --group-add video --ipc=host -v /home/marcel/Applications/contained/slack:/root/.config/Slack -v /home/marcel/Downloads:/home/root/Downloads aimvector/slack'
 
+#sqlops contained.
+alias sqlops='xhost local:root
+docker run -d --rm --net host -v /home/marcel/Applications/contained/slqops/config/:/root/.config/azuredatastudio/ -v /home/marcel/Applications/contained/slqops/.azuredatastudio/:/root/.azuredatastudio/ -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/az-datastudio'
+
+
+#azurestorageexplorer contained.
+alias azurestorageexplorer='xhost local:root
+docker run -d --net host -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/run/dbus:/var/run/dbus -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/azurestorageexplorer'
+
+alias dive='docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive:latest'
+
+#gcloud contained.
+alias g='docker run -it --rm -v /home/marcel/Applications/contained/gcloud:/root/.config/gcloud -v $PWD:/work -v ~/.kube:/root/.kube --entrypoint "bash" aimvector/gcloud'
+alias gcloud=g
