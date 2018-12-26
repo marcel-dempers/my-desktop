@@ -1,11 +1,10 @@
 FROM python:2-alpine
 
-RUN apk update && apk add --no-cache bash
+RUN apk update && apk add --no-cache bash curl
 
-ENV VERSION 204.0.0
+ENV VERSION 228.0.0
 RUN set -x \
 	&& apk add --no-cache --virtual .build-deps \
-		curl \
 		ca-certificates \
 		tar \
 	&& curl -sSL -o /tmp/google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${VERSION}-linux-x86_64.tar.gz \
@@ -19,6 +18,12 @@ RUN set -x \
         	--path-update true \
 	) \
 	&& apk del .build-deps
+
+#Kubernetes control cmd
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+RUN chmod +x ./kubectl
+RUN mv ./kubectl /usr/local/bin/kubectl
+
 
 RUN mkdir /work
 WORKDIR /work
