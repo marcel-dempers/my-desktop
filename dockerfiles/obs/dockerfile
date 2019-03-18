@@ -1,0 +1,55 @@
+FROM ubuntu:18.04
+
+#dependancies to build
+RUN apt-get update -y && apt-get install -y ffmpeg software-properties-common build-essential git pkg-config cmake git-core checkinstall
+
+RUN apt-get update -y && apt-get install -y libx11-dev libgl1-mesa-dev \
+        libgl1-mesa-glx \
+	libvlc-dev libpulse-dev libxcomposite-dev libxinerama-dev \
+	libv4l-dev libudev-dev libfreetype6-dev libfontconfig1-dev qtbase5-dev \
+	libqt5x11extras5-dev libqt5svg5-dev libx264-dev libxcb-xinerama0-dev \
+	libxcb-shm0-dev libjack-jackd2-dev libcurl4-openssl-dev libluajit-5.1-dev swig
+
+#Get FFMPEG
+
+RUN apt-get update -y && apt-get install -y zlib1g-dev yasm && \
+  git clone --depth 1 git://source.ffmpeg.org/ffmpeg.git
+
+RUN cd ffmpeg && \
+	./configure --enable-shared --prefix=/usr && \
+	make -j4 && \
+	checkinstall --pkgname=FFmpeg --fstrans=no --backup=no \
+        --pkgversion="$(date +%Y%m%d)-git" --deldoc=yes
+#Build portable version from source
+RUN  git clone --recursive https://github.com/obsproject/obs-studio.git
+RUN cd obs-studio && \
+	mkdir build && \
+	cd build && \
+	cmake -DUNIX_STRUCTURE=0 -DCMAKE_INSTALL_PREFIX=/"${HOME}/obs-studio-portable" .. && \
+	make -j4 && make install
+
+RUN mkdir -p /home/obs && mv ${HOME}/obs-studio-portable/ /home/obs
+
+# create user and map on host user
+# add new user to sudoers
+# TODO: uid / gid could be set with env var
+RUN export uid=1000 gid=1000
+RUN echo "obs:x:${uid}:${gid}:OpenBroadcastSoftware,,,:/home/obs:/bin/bash" >> /etc/passwd
+RUN echo "obs:x:${uid}:" >> /etc/group
+RUN echo "obs ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN chmod 0440 /etc/sudoers
+RUN chown ${uid}:${gid} -R /home/obs
+
+USER obs
+
+ENV HOME /home/obs
+WORKDIR /home/obs
+
+#install nvidia drivers
+#RUN apt-get install -y nvidia-driver-390
+#RUN add-apt-repository ppa:obsproject/obs-studio && \
+#	apt-get update -y && \
+#	apt-get install -y obs-studio && \
+#	apt-get purge --auto-remove -y curl && \
+#	rm -rf /var/lib/apt/lists/* && \
+#	rm -rf /src/*.deb
