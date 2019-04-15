@@ -1,0 +1,7 @@
+FROM aimvector/kube-tools
+
+COPY entrypoint.sh /script/task.sh
+
+WORKDIR /script
+
+ENTRYPOINT ["/bin/bash", "-c", "chmod +x task.sh && ./task.sh ${*}", "--"]
