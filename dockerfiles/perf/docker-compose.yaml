@@ -1,0 +1,21 @@
+version: "3"
+services:
+  linuxsource:
+    image: aimvector/linux
+    build:
+      context: ../linux/
+  perf-4.9.125:
+    image: aimvector/perf:4.9.125
+    build:
+      context: .
+      args:
+      - LINUX_KERNEL_VERSION=v4.9.125
+  perf-4.15.0.46:
+    image: aimvector/perf:4.15.1
+    build:
+      context: .
+      args:
+      - LINUX_KERNEL_VERSION=v4.15.1
+
+#REFERENCE TO LINUX KERNEL TAGS:
+#https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/refs/tags
