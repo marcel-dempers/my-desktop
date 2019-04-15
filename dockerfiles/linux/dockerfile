@@ -1,0 +1,13 @@
+FROM ubuntu:18.04
+
+RUN apt-get update && apt-get install -y git curl gcc make bison flex elfutils libelf-dev libdw-dev libaudit-dev xz-utils
+
+RUN mkdir /src
+WORKDIR /src
+
+RUN git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+WORKDIR /src/linux-stable/
+RUN ls /src/linux-stable/
+
+#INFO : Check tags to checkout a version
+#https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/refs/tags
