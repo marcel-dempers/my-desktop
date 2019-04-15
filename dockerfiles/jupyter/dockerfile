@@ -1,0 +1,6 @@
+FROM python:3.7
+
+# Install Jupyter
+RUN pip install jupyter
+
+ENTRYPOINT [ "jupyter notebook" ]
