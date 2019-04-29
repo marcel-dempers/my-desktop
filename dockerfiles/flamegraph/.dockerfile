@@ -44,6 +44,7 @@ RUN apt-get update && apt-get install -y git \
 #WORKDIR /flamegraph/FlameGraph
 
 #COPY ./start.sh /flamegraph/FlameGraph/
+
 #RUN chmod +x /flamegraph/FlameGraph/start.sh
 
 ENTRYPOINT ["/bin/bash"]

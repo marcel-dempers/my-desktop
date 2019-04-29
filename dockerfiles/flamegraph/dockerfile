@@ -1,0 +1,15 @@
+FROM perl:5.28-slim
+
+WORKDIR /
+
+RUN apt-get update && apt-get install -y bash git 
+
+RUN git clone --depth 1 https://github.com/brendangregg/FlameGraph && \
+	cd FlameGraph
+
+COPY ./generate.sh /FlameGraph/generate.sh
+RUN chmod +x /FlameGraph/generate.sh
+WORKDIR /FlameGraph
+
+ENTRYPOINT ["./generate.sh"]
+CMD []

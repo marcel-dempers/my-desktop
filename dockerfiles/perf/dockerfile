@@ -12,7 +12,7 @@ FROM ubuntu:18.04
 
 RUN apt-get update && apt-get install -y libelf-dev libdw-dev libaudit-dev
 
-COPY --from=build /tmp/ /tmp/
+COPY --from=build /tmp/ /perf/
 WORKDIR /out
 
-ENTRYPOINT ["/tmp/perf"]
+ENTRYPOINT ["/perf/perf"]

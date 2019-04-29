@@ -1,0 +1,8 @@
+version: "3"
+services:
+  dotnet-perf-4.15.0:
+    image: aimvector/dotnet-perf:4.15.1
+    build:
+      context: .
+      args:
+      - PERF_VERSION=4.15.1
