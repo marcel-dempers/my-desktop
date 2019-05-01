@@ -1,6 +1,4 @@
 #!/bin/bash
 
-file=$1
-
-./stackcollapse-perf.pl $file > folded 
+./stackcollapse-perf.pl /out/out.perf > folded
 ./flamegraph.pl folded > /out/perf.svg
