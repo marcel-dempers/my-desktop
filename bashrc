@@ -68,10 +68,6 @@ alias pandoc='docker run -it --rm -v $PWD:/convert aimvector/pandoc'
 alias fiddler='xhost local:root
 docker run -d --name fiddler --rm -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Applications/contained/fiddler/:/root/.mono/ --device /dev/dri -p 8888:8888 -v /dev/shm:/dev/shm -e DISPLAY=unix$DISPLAY aimvector/fiddler'
 
-
-#wrk contained.
-alias wrk='docker run -it --rm --net host -v /home/marcel/Applications/contained/wrk/:/data -v /home/marcel/personal/git/my-desktop/dockerfiles/wrk:/wrk aimvector/wrk'
-
 #vegeta contained.
 alias vegeta='docker run -it --rm --net host -v /home/marcel/personal/git/my-desktop/dockerfiles/vegeta:/data aimvector/vegeta'
 
@@ -128,4 +124,8 @@ docker run -d --rm --net host -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-u
 #jmeter contained.
 alias jmeter='xhost local:root
 docker run -d --net host -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v /home/marcel/git:/git -v /home/marcel/personal/git:/personal/git -v /home/marcel/Downloads:/Downloads aimvector/jmeter'
+
+
+#wrk contained.
+alias wrk='docker run -it --rm --net host -v $PWD:/wrk aimvector/wrk'
 
