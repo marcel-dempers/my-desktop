@@ -36,19 +36,13 @@ docker run -d --rm --net host -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/A
 alias shutter='xhost local:root
 docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Applications/contained/shutter/.shutter/:/root/.shutter -v /home/marcel/Applications/contained/shutter/plugins/:/usr/share/shutter/resources/system/plugins -e DISPLAY=unix$DISPLAY -v /home/marcel/Pictures:/home/root/Pictures --name shutter aimvector/shutter'
 
-
-#jmeter contained.
-alias jmeter='xhost local:root
-docker run -d --net host -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v /home/marcel/git:/git -v /home/marcel/personal/git:/personal/git aimvector/jmeter'
-
-
 #powershell contained.
 alias powershell='docker run -it --rm --net host jess/powershell'
 
 
 #vscode contained.
 alias vs='xhost local:root
-docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Downloads:/home/user/Downloads -v /home/marcel/Applications/contained/vscode/:/home/user -v /home/marcel/git:/home/user/git -v /home/marcel/personal/git:/home/user/personal/git -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/vscode:test'
+docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Downloads:/home/user/Downloads -v /home/marcel/Applications/contained/vscode/:/home/user -v /home/marcel/git:/home/user/git -v /home/marcel/personal/git:/home/user/personal/git -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/vscode'
 
 
 d () {
@@ -125,4 +119,13 @@ alias gcloud=g
 #obs contained.
 alias obs='xhost local:root
 docker run -it --rm --net host --privileged -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Applications/contained/obs/:/data -v /home/marcel/.Xauthority:/root/obs-studio-portable/bin/64bit/.Xauthority -v /var/run/dbus:/var/run/dbus -e DISPLAY=unix$DISPLAY --device /dev/video0 --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name obs aimvector/obs /bin/bash'
+
+
+#jupyter contained.
+alias jupyter='xhost local:root
+docker run -d --rm --net host -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/Applications/contained/jupyter/:/data -w /data -e DISPLAY=unix$DISPLAY -v /home/marcel/Downloads:/home/chrome/Downloads aimvector/jupyter'
+
+#jmeter contained.
+alias jmeter='xhost local:root
+docker run -d --net host -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v /home/marcel/git:/git -v /home/marcel/personal/git:/personal/git -v /home/marcel/Downloads:/Downloads aimvector/jmeter'
 

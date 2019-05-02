@@ -11,5 +11,6 @@ docker run -d \
 -e DISPLAY=unix\$DISPLAY \
 -v $HOME/git:/git \
 -v $HOME/personal/git:/personal/git \
+-v $HOME/Downloads:/Downloads \
 aimvector/jmeter'
 " >> ~/.bashrc
