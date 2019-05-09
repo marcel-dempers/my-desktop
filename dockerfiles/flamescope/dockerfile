@@ -1,0 +1,25 @@
+FROM python:3-alpine3.8
+
+RUN apk update && apk add --no-cache git
+
+RUN mkdir /src && cd /src/ && \
+	git clone https://github.com/Netflix/flamescope.git && \
+	cd flamescope && \
+	git checkout bd3249407619d52dcb395b339f2906585e074b91
+
+WORKDIR /src/flamescope/
+
+RUN mkdir /app/ && cp -R ./app /app/ && \
+	cp ./run.py /app/ && \
+	cp ./requirements.txt /app/
+
+RUN apk add libmagic && \
+  cd /app && ls -l && \
+  pip3 install -r requirements.txt && \
+  mkdir /profiles && \
+  sed -i -e s/127.0.0.1/0.0.0.0/g -e s~examples~/profiles~g app/config.py
+
+WORKDIR "/app"
+ENTRYPOINT ["python", "run.py"]
+EXPOSE 5000/tcp
+
