@@ -1,0 +1,4 @@
+#docker run -it --rm -w /work -v ${PWD}:/work -v ~/.gnupg:/root/.gnupg aimvector/gnupg /bin/bash
+FROM debian:sid-slim
+
+RUN apt-get update && apt-get install -y gnupg
