@@ -1,5 +1,5 @@
 
-alias kubetools='docker run -it --rm -v /home/marcel/.minikube:/home/marcel/.minikube -v /home/marcel/Applications/contained/gcloud:/root/.config/gcloud -e GOOGLE_APPLICATION_CREDENTIALS=/root/.config/gcloud/credentials.json -v /var/run/docker.sock:/var/run/docker.sock -v ~/.azure:/root/.azure -v $PWD:/kubetools -v ~/.kube:/root/.kube --rm --network=host --workdir /kubetools aimvector/kube-tools'
+alias kubetools='docker run -it --rm -v /home/marcel/.minikube:/home/marcel/.minikube -v /home/marcel/Applications/contained/gcloud:/root/.config/gcloud -e GOOGLE_APPLICATION_CREDENTIALS=/root/.config/gcloud/credentials.json -v /var/run/docker.sock:/var/run/docker.sock -v ~/.azure:/root/.azure -v $PWD:/kubetools -v ~/.kube:/root/.kube --rm --network=host --workdir /kubetools aimvector/kube-tools:latest'
 
 alias flushdns='sudo systemd-resolve --flush-caches'
 
@@ -128,4 +128,18 @@ docker run -d --net host -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLA
 
 #wrk contained.
 alias wrk='docker run -it --rm --net host -v $PWD:/wrk aimvector/wrk'
+
+#sysstat contained.
+alias sysstat='docker run -it --rm --net host --pid host -v /etc/localtime:/etc/localtime:ro aimvector/sysstat'
+
+
+#airtame contained.
+alias airtame='xhost local:root
+docker run -d --rm --net host --ipc host -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm -v /dev/bus/:/dev/bus/ --device /dev/video0:/dev/video0 aimvector/airtame'
+
+alias wireshark='docker run -d -v $PWD:/work -w /work -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --name wireshark jess/wireshark'
+
+#tcpdump contained.
+alias tcpdump='xhost local:root
+docker run -d --rm --net host -v /etc/localtime:/etc/localtime:ro -v $PWD:/tcpdump aimvector/tcpdump'
 
