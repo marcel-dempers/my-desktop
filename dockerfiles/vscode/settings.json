@@ -1,0 +1,51 @@
+{
+    "workbench.colorTheme": "Hail",
+    "workbench.colorCustomizations": {
+        "[Amethyst Dark (Higher Contrast)]": {
+            "editor.background": "#380235",
+            "sideBar.background": "#360232",
+        },
+        "[Red]": {
+            "sideBar.background": "#300000",
+            "editor.background": "#200000"
+        },
+        "[Hail CustomLightblue]": {
+            "sideBar.background": "#041D28",
+            "sideBar.foreground": "#6ee2ff",
+            "editor.background": "#041D28",
+            "activityBar.background" : "#041D28",
+            "editorGroupHeader.tabsBackground": "#041D28",
+            "editorGroupHeader.noTabsBackground": "#041D28",
+            "tab.inactiveBackground": "#041D28"
+        },
+        "[Hail]": {
+            "sideBar.background": "#061E2A",
+            "sideBar.foreground": "#FFFFFF",
+            "editor.background": "#061E2A",
+            "activityBar.background" : "#061E2A",
+            "editorGroupHeader.tabsBackground": "#121314",
+            "editorGroupHeader.noTabsBackground": "#121314",
+            "tab.inactiveBackground": "#121314"
+        }
+        ,
+        "[Andromeda Italic]": {
+            "sideBar.background": "#31052F",
+            "sideBar.foreground": "#6ee2ff",
+            "editor.background": "#31052F",
+            "activityBar.background" : "#31052F",
+            "editorGroupHeader.tabsBackground": "#31052F",
+            "editorGroupHeader.noTabsBackground": "#31052F",
+            "tab.inactiveBackground": "#31052F"
+        }
+    },
+    "window.menuBarVisibility": "toggle",
+    "extensions.ignoreRecommendations": true,
+    "files.associations": {
+        "*.conf": "ini"
+    },
+    "window.zoomLevel": 0,
+    "editor.minimap.enabled": false,
+    "window.titleBarStyle": "native",
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false
+}
