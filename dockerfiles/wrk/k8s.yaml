@@ -10,4 +10,4 @@ spec:
     command: ["/bin/bash"]
     args: ["-c", "tail -f /dev/null"]
   nodeSelector:
-    kubernetes.io/hostname: aks-nodepool1-53955908-1
+    kubernetes.io/hostname: aks-nodepool1-XXXXXX-1
