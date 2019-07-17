@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wrk
+spec:
+  containers:
+  - name: perf
+    image: aimvector/wrk
+    imagePullPolicy: Always
+    command: ["/bin/bash"]
+    args: ["-c", "tail -f /dev/null"]
+  nodeSelector:
+    kubernetes.io/hostname: aks-nodepool1-53955908-1
