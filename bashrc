@@ -24,7 +24,7 @@ docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --ne
 
 #vbox contained.
 alias vbox='xhost local:root
-docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/vboxdrv:/dev/vboxdrv -e DISPLAY=unix$DISPLAY --privileged -v /dev/:/dev/ -v ~/Applications/contained/vbox/machines:"/root/VirtualBox VMs" -v ~/Applications/contained/vbox/.config:/root/.config/VirtualBox -v ~/Downloads:/images --name virtualbox aimvector/virtualbox'
+docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /data/vbox:/hdd -v /dev/vboxdrv:/dev/vboxdrv -e DISPLAY=unix$DISPLAY --privileged -v /dev/:/dev/ -v ~/Applications/contained/vbox/machines:"/root/VirtualBox VMs" -v ~/Applications/contained/vbox/.config:/root/.config/VirtualBox -v ~/Downloads:/images --name virtualbox aimvector/virtualbox'
 
 
 #firefox contained.
@@ -143,3 +143,6 @@ alias wireshark='docker run -d -v $PWD:/work -w /work -v /etc/localtime:/etc/loc
 alias tcpdump='xhost local:root
 docker run -d --rm --net host -v /etc/localtime:/etc/localtime:ro -v $PWD:/tcpdump aimvector/tcpdump'
 
+
+#awscli contained.
+alias awscli='docker run -it --rm -v /home/marcel/Applications/contained/awscli/:/root/.aws/ -v $PWD:/work --entrypoint "bash" aimvector/awscli'
