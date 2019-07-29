@@ -2,7 +2,7 @@
 
 
 #pre-requisites
-mkdir -p $HOME/Applications/contained/chrome/profile
+mkdir -p $HOME/containers/chrome/
 
 #Run chrome
 echo "
@@ -13,9 +13,10 @@ docker run -d \
 --net host \
 --cpuset-cpus 2 \
 --memory 1024mb \
+--security-opt seccomp=$HOME\seccomp-chrome.json \
 -v /etc/localtime:/etc/localtime:ro \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
--v $HOME/Applications/contained/chrome/profile/:/data \
+-v $HOME/containers/chrome/:/chrome-profile \
 -e DISPLAY=unix\$DISPLAY \
 -v $HOME/Downloads:/home/chrome/Downloads \
 --device /dev/snd:/dev/snd \

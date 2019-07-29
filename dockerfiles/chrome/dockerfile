@@ -36,7 +36,10 @@ RUN set -x \
 	&& apt-get purge -y --auto-remove curl
 
 # Add chrome user
-RUN groupadd -r chrome && useradd -r -g chrome -G audio,video chrome \
+#Note: 
+# hack: I use userid 1000 for chrome because user profile mount is added with userid 1000 
+# and chrome user can have different id if I don't specify it.
+RUN groupadd -r chrome && useradd -r -g chrome -u 1000 -G audio,video chrome \
     && mkdir -p /home/chrome/Downloads && chown -R chrome:chrome /home/chrome
 
 COPY local.conf /etc/fonts/local.conf
@@ -46,4 +49,4 @@ USER chrome
 
 # Autorun chrome
 ENTRYPOINT [ "google-chrome" ]
-CMD [ "--user-data-dir=/data" ]
+CMD [ "--user-data-dir=/home/chrome/chrome-profile" ]
