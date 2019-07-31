@@ -146,3 +146,6 @@ docker run -d --rm --net host -v /etc/localtime:/etc/localtime:ro -v $PWD:/tcpdu
 
 #awscli contained.
 alias awscli='docker run -it --rm -v ~/Applications/contained/awscli/:/root/.aws/ -v $PWD:/work --entrypoint "bash" aimvector/awscli'
+source ~/kube-ps1/kube-ps1.sh
+source ~/kube-ps1/my-ps1.sh
+PROMPT_COMMAND="my_kube_ps1"
