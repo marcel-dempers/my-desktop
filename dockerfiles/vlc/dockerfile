@@ -1,0 +1,18 @@
+FROM debian:sid
+
+RUN apt-get update && apt-get install -y \
+    sudo \
+	libcanberra-gtk* \
+	apt-transport-https \
+	ca-certificates \
+	curl \
+        vlc \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& rm -rf /src/*.deb
+
+RUN groupadd -r vlc && useradd -r -g vlc -G audio,video vlc \
+    && mkdir -p /home/vlc/Downloads && chown -R vlc:vlc /home/vlc
+
+USER vlc
+
+CMD [ "vlc" ]
