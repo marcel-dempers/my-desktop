@@ -1,0 +1,16 @@
+FROM debian:buster-slim
+
+RUN apt-get update && apt-get install -y \
+	apt-transport-https \
+	ca-certificates \
+	curl
+
+ENV VERSION v0.5.1
+RUN mkdir /octant && cd /octant && curl -o octant.deb -L https://github.com/vmware/octant/releases/download/${VERSION}/octant_0.5.1_Linux-64bit.deb && dpkg -i octant.deb
+
+ENV OCTANT_LISTENER_ADDR=0.0.0.0:51234
+ENV OCTANT_DISABLE_OPEN_BROWSER=true
+
+VOLUME ["/root/.kube/"]
+
+ENTRYPOINT [ "octant" ]
