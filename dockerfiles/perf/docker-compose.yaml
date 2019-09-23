@@ -4,6 +4,12 @@ services:
     image: aimvector/linux
     build:
       context: ../linux/
+  perf-4.4.148:
+    image: aimvector/perf:4.4.148
+    build:
+      context: .
+      args:
+      - LINUX_KERNEL_VERSION=v4.4.148
   perf-4.9.125:
     image: aimvector/perf:4.9.125
     build:

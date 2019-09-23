@@ -3,6 +3,8 @@
 
 #pre-requisites
 mkdir -p $HOME/containers/chrome/
+sudo chown -R 1000:1000 $HOME/containers/chrome/
+# MAKE SURE docker has permission to ls -la ~/containers/chrome/
 
 #Run chrome
 echo "

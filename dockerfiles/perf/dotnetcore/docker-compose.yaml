@@ -6,3 +6,9 @@ services:
       context: .
       args:
       - PERF_VERSION=4.15.1
+  dotnet-perf-4.4.148:
+    image: aimvector/dotnet-perf:4.4.148
+    build:
+      context: .
+      args:
+      - PERF_VERSION=4.4.148

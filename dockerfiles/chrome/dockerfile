@@ -42,11 +42,15 @@ RUN set -x \
 RUN groupadd -r chrome && useradd -r -g chrome -u 1000 -G audio,video chrome \
     && mkdir -p /home/chrome/Downloads && chown -R chrome:chrome /home/chrome
 
+RUN mkdir -p /home/chrome/chrome-profile && chown -R chrome:chrome /home/chrome/chrome-profile
+
 COPY local.conf /etc/fonts/local.conf
 
 # Run Chrome as non privileged user
 USER chrome
 
 # Autorun chrome
-ENTRYPOINT [ "google-chrome" ]
-CMD [ "--user-data-dir=/home/chrome/chrome-profile" ]
+#ENTRYPOINT [ "google-chrome" ]
+CMD [ "google-chrome", "--user-data-dir=/home/chrome/chrome-profile" ]
+#CMD [ "google-chrome", "--user-data-dir=/home/chrome/chrome-profile", "--no-sandbox" ]
+

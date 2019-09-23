@@ -1,4 +1,4 @@
-alias kubetools='docker run -it --rm  -v /var/run/docker.sock:/var/run/docker.sock -v ~/.azure:/root/.azure -v $PWD:/kubetools -v ~/.kube:/root/.kube --rm --network=host --workdir /kubetools aimvector/kube-tools:latest'
+alias kubetools='docker run -it --rm -v ~/.minikube:/home/marcel/.minikube -v /var/run/docker.sock:/var/run/docker.sock -v ~/.azure:/root/.azure -v $PWD:/kubetools -v ~/.kube:/root/.kube --rm --network=host --workdir /kubetools aimvector/kube-tools:latest'
 
 alias flushdns='sudo systemd-resolve --flush-caches'
 
@@ -9,8 +9,8 @@ docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --de
 
 #chrome contained.
 alias chrome='xhost local:root
-docker run -d --net host -v ~/containers/chrome/:/home/chrome/chrome-profile -v /var/run/dbus:/var/run/dbus --security-opt seccomp=~/seccomp-chrome.json -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v ~/Downloads:/home/chrome/Downloads --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name chrome aimvector/chrome'
-
+docker run -d --net host --privileged --security-opt seccomp=unconfined -v ~/containers/chrome/:/home/chrome/chrome-profile -v /var/run/dbus:/var/run/dbus -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v ~/Downloads:/home/chrome/Downloads --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name chrome aimvector/chrome'
+#-v ~/containers/chrome/:/home/chrome/chrome-profile
 
 #skype contained.
 alias skype='xhost local:root
@@ -104,7 +104,7 @@ docker run -d --rm --net host -v ~/containers/slqops/config/:/root/.config/azure
 alias azurestorageexplorer='xhost local:root
 docker run -d --net host -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v /var/run/dbus:/var/run/dbus -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/azurestorageexplorer'
 
-alias dive='docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive:latest'
+alias dive='docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -e DOCKER_API_VERSION=1.37 wagoodman/dive:latest'
 
 #gcloud contained.
 alias g='docker run -it --rm -v ~/containers/gcloud:/root/.config/gcloud -v $PWD:/work -v ~/.kube:/root/.kube --entrypoint "bash" aimvector/gcloud'
