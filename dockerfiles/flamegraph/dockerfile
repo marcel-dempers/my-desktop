@@ -1,15 +1,21 @@
-FROM perl:5.28-slim
+FROM ubuntu:bionic-20191029 
 
-WORKDIR /
+RUN apt-get update && \
+    apt-get install -y perl gnupg2 git bash lsb-release apt-transport-https ca-certificates
 
-RUN apt-get update && apt-get install -y bash git 
+#Install iovisor/bcc tools
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4052245BD4284CDD && \
+echo "deb https://repo.iovisor.org/apt/$(lsb_release -cs) $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/iovisor.list
+
+RUN apt-get update && apt-get -y install bcc-tools libbcc-examples linux-headers-$(uname -r)
+
+RUN mkdir /work
+WORKDIR /work
 
 RUN git clone --depth 1 https://github.com/brendangregg/FlameGraph && \
-	cd FlameGraph
+    git clone --depth 1 https://github.com/iovisor/bcc
 
-COPY ./generate.sh /FlameGraph/generate.sh
-RUN chmod +x /FlameGraph/generate.sh
-WORKDIR /FlameGraph
+COPY ./generate.sh /work/FlameGraph/generate.sh
+RUN chmod +x /work/FlameGraph/generate.sh
 
-ENTRYPOINT ["./generate.sh"]
-CMD []
+ENTRYPOINT ["/bin/bash"]
