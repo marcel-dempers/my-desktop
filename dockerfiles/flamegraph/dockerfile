@@ -7,13 +7,20 @@ RUN apt-get update && \
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4052245BD4284CDD && \
 echo "deb https://repo.iovisor.org/apt/$(lsb_release -cs) $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/iovisor.list
 
-RUN apt-get update && apt-get -y install bcc-tools libbcc-examples linux-headers-$(uname -r)
+RUN apt-get update && apt-get -y install curl bcc-tools libbcc-examples linux-headers-$(uname -r)
 
 RUN mkdir /work
 WORKDIR /work
 
 RUN git clone --depth 1 https://github.com/brendangregg/FlameGraph && \
     git clone --depth 1 https://github.com/iovisor/bcc
+
+
+#linux-headers-azure for EBPF in the cloud :)
+# curl -LO http://security.ubuntu.com/ubuntu/pool/main/l/linux-azure/linux-headers-4.15.0-1063-azure_4.15.0-1063.68_amd64.deb && \
+# curl -LO http://security.ubuntu.com/ubuntu/pool/main/l/linux-azure/linux-azure-headers-4.15.0-1063_4.15.0-1063.68_all.deb && \
+# dpkg -i linux-azure-headers-4.15.0-1063_4.15.0-1063.68_all.deb && \
+# dpkg -i linux-headers-4.15.0-1063-azure_4.15.0-1063.68_amd64.deb
 
 COPY ./generate.sh /work/FlameGraph/generate.sh
 RUN chmod +x /work/FlameGraph/generate.sh
