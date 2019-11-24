@@ -1,4 +1,5 @@
-alias kubetools='docker run -it --rm -v ~/.minikube:/home/marcel/.minikube -v /var/run/docker.sock:/var/run/docker.sock -v ~/.azure:/root/.azure -v $PWD:/kubetools -v ~/.kube:/root/.kube --rm --network=host --workdir /kubetools aimvector/kube-tools:latest'
+alias pwn='sudo chown -R marcel *'
+alias kubetools='docker run -it --rm -e KUBE_EDITOR=nano -v ~/.minikube:/home/marcel/.minikube -v /var/run/docker.sock:/var/run/docker.sock -v ~/.azure:/root/.azure -v $PWD:/kubetools -v ~/.kube:/root/.kube --rm --network=host --workdir /kubetools aimvector/kube-tools:latest'
 
 alias flushdns='sudo systemd-resolve --flush-caches'
 
