@@ -1,0 +1,22 @@
+FROM ubuntu:bionic-20191029 
+
+RUN apt-get update && \
+    apt-get install -y curl perl gnupg2 git htop bash lsb-release apt-transport-https ca-certificates
+
+#Install iovisor/bcc tools
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4052245BD4284CDD && \
+echo "deb https://repo.iovisor.org/apt/$(lsb_release -cs) $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/iovisor.list
+
+#install the docker-cli to extract PID info from pod with `docker inspect`
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+    echo 'deb [arch=amd64] https://download.docker.com/linux/debian buster stable' > /etc/apt/sources.list.d/docker.list
+
+RUN apt-get update && apt-get -y install bcc-tools libbcc-examples linux-headers-$(uname -r) docker-ce-cli
+
+RUN mkdir /work
+WORKDIR /work
+
+RUN git clone --depth 1 https://github.com/brendangregg/FlameGraph && \
+    git clone --depth 1 https://github.com/iovisor/bcc
+
+ENTRYPOINT ["/bin/bash"]

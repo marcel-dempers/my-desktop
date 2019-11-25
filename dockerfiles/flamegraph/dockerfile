@@ -1,7 +1,7 @@
 FROM ubuntu:bionic-20191029 
 
 RUN apt-get update && \
-    apt-get install -y perl gnupg2 git bash lsb-release apt-transport-https ca-certificates
+    apt-get install -y perl gnupg2 git htop bash lsb-release apt-transport-https ca-certificates
 
 #Install iovisor/bcc tools
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4052245BD4284CDD && \
