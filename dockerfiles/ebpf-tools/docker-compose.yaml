@@ -11,3 +11,8 @@ services:
     build:
       context: .
       dockerfile: azure.4.15.0.1063.dockerfile
+  azure.4.15.0.1061: #contains the linux headers for azure with kernel 4.15.0.1061
+    image: aimvector/ebpf-tools:azure.4.15.0.1061
+    build:
+      context: .
+      dockerfile: azure.4.15.0.1061.dockerfile
