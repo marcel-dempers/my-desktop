@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #pre-requisite
-mkdir -p ~/Applications/contained/vscode/
+mkdir -p ~/containers/vscode/
 #Run vscode
 echo "
 #vscode contained.
@@ -14,6 +14,7 @@ docker run -d \
 -v $HOME/personal/git:/home/user/personal/git \
 -v $HOME/Downloads:/home/user/Downloads \
 -e DISPLAY=unix\$DISPLAY \
+--security-opt seccomp=~/containers/vscode/seccomp-vscode.json \
 --device /dev/dri \
 -v /dev/shm:/dev/shm \
 aimvector/vscode'

@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye-slim
 
 ENV DEBIAN_FRONTEND noninteractive
 

@@ -1,4 +1,4 @@
-alias pwn='sudo chown -R marcel *'
+alias pwn='sudo chown -R marcel **'
 alias kubetools='docker run -it --rm -e KUBE_EDITOR=nano -v ~/.minikube:/home/marcel/.minikube -v /var/run/docker.sock:/var/run/docker.sock -v ~/.azure:/root/.azure -v $PWD:/kubetools -v ~/.kube:/root/.kube --rm --network=host --workdir /kubetools aimvector/kube-tools:latest'
 
 alias flushdns='sudo systemd-resolve --flush-caches'
@@ -10,8 +10,11 @@ docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --de
 
 #chrome contained.
 alias chrome='xhost local:root
-docker run -d --net host --privileged --security-opt seccomp=unconfined -v ~/containers/chrome/:/home/chrome/chrome-profile -v /var/run/dbus:/var/run/dbus -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v ~/Downloads:/home/chrome/Downloads --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name chrome aimvector/chrome'
-#-v ~/containers/chrome/:/home/chrome/chrome-profile
+docker run -d --net host --privileged --security-opt seccomp=unconfined -v ~/containers/chrome/:/home/chrome/chrome-profile -v /var/run/dbus:/var/run/dbus -v /etc/hosts:/etc/hosts -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v ~/Downloads:/home/chrome/Downloads --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name chrome chrome'
+
+#chromium contained.
+alias chromium='xhost local:root
+docker run -d --net host --privileged --security-opt seccomp=unconfined -v ~/containers/chromium/:/home/chromium/chromium-profile -v /var/run/dbus:/var/run/dbus -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v ~/Downloads:/home/chromium/Downloads -v /dev:/dev --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name chromium aimvector/chromium'
 
 #skype contained.
 alias skype='xhost local:root
@@ -29,7 +32,7 @@ docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /data/vbox:/hdd -v /dev/v
 
 #firefox contained.
 alias firefox='xhost local:root
-docker run -d --rm --net host -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/containers/firefox/data:/root/.mozilla -e DISPLAY=unix$DISPLAY -v ~/Downloads:/root/Downloads --device /dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name firefox aimvector/firefox'
+docker run -d --rm --net host -v /etc/hosts:/etc/hosts -v /tmp/.X11-unix:/tmp/.X11-unix -v /etc/localtime:/etc/localtime:ro -v ~/containers/firefox/data:/root/.mozilla -e DISPLAY=unix$DISPLAY -v ~/Downloads:/root/Downloads --device /dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name firefox aimvector/firefox'
 
 
 #shutter contained.
@@ -41,7 +44,7 @@ alias powershell='docker run -it --rm --net host jess/powershell'
 
 #vscode contained.
 alias vs='xhost local:root
-docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/Downloads:/home/user/Downloads -v ~/containers/vscode/:/home/user -v ~/personal/git:/home/user/personal/git -v ~/git:/home/user/git -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/vscode'
+docker run -d --net host --security-opt seccomp=~/containers/vscode/seccomp-vscode.json -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/Downloads:/home/user/Downloads -v ~/containers/vscode/:/home/user -v ~/personal/git:/home/user/personal/git -v ~/git:/home/user/git -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/vscode'
 
 
 d () {
@@ -68,7 +71,7 @@ alias fiddler='xhost local:root
 docker run -d --name fiddler --rm -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/containers/fiddler/:/root/.mono/ --device /dev/dri -p 8888:8888 -v /dev/shm:/dev/shm -e DISPLAY=unix$DISPLAY aimvector/fiddler'
 
 #vegeta contained.
-alias vegeta='docker run -it --rm --net host -v ~/personal/git/my-desktop/dockerfiles/vegeta:/data aimvector/vegeta'
+alias vegeta='docker run -it --rm --net host -v $PWD:/work -w /work aimvector/vegeta'
 
 
 #ab contained.
@@ -148,3 +151,16 @@ alias awscli='docker run -it --rm -v ~/containers/awscli/:/root/.aws/ -v $PWD:/w
 source ~/kube-ps1/kube-ps1.sh
 source ~/kube-ps1/my-ps1.sh
 PROMPT_COMMAND="my_kube_ps1"
+
+
+geo-ip-func(){
+	curl https://ipapi.co/$1/json/ | jq
+}
+
+alias geoip='geo-ip-func'
+
+find-az-ip(){
+	az account list -o json | jq ".[] .id" | sed s/\"//g | while read -r id; do az account set --subscription $id --output none; az network public-ip list -o table | grep $1;done
+}
+
+alias azip='find-az-ip'
