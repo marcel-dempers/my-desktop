@@ -10,11 +10,11 @@ docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --de
 
 #chrome contained.
 alias chrome='xhost local:root
-docker run -d --net host --privileged --security-opt seccomp=unconfined -v ~/containers/chrome/:/home/chrome/chrome-profile -v /var/run/dbus:/var/run/dbus -v /etc/hosts:/etc/hosts -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v ~/Downloads:/home/chrome/Downloads --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name chrome chrome'
+docker run -d --net host --security-opt seccomp=~/containers/chrome/seccomp-chrome.json -v ~/containers/chrome/:/home/chrome/chrome-profile -v /var/run/dbus:/var/run/dbus -v /etc/hosts:/etc/hosts -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v ~/Downloads:/home/chrome/Downloads --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name chrome aimvector/chrome-debug'
 
 #chromium contained.
 alias chromium='xhost local:root
-docker run -d --net host --privileged --security-opt seccomp=unconfined -v ~/containers/chromium/:/home/chromium/chromium-profile -v /var/run/dbus:/var/run/dbus -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v ~/Downloads:/home/chromium/Downloads -v /dev:/dev --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name chromium aimvector/chromium'
+docker run -d --net host --security-opt seccomp=~/containers/chromium/seccomp-chromium.json -v ~/containers/chromium/:/home/chromium/chromium-profile -v /var/run/dbus:/var/run/dbus -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v ~/Downloads:/home/chromium/Downloads -v /dev:/dev --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name chromium aimvector/chromium'
 
 #skype contained.
 alias skype='xhost local:root
