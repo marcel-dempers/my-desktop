@@ -1,0 +1,10 @@
+FROM debian:bullseye-slim
+
+RUN apt-get update && apt-get install -y curl bash ca-certificates
+
+RUN mkdir -p /tmp/azcopy && \
+    curl -L -o /tmp/azcopy.tar.gz https://aka.ms/downloadazcopy-v10-linux && \
+    tar -Oxzf /tmp/azcopy.tar.gz > /tmp/azcopy/out && cp /tmp/azcopy/out /usr/local/bin/azcopy && \
+    chmod +x /usr/local/bin/azcopy
+
+ENTRYPOINT [ "azcopy" ]

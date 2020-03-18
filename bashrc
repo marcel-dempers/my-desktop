@@ -10,7 +10,7 @@ docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --de
 
 #chrome contained.
 alias chrome='xhost local:root
-docker run -d --net host --security-opt seccomp=~/containers/chrome/seccomp-chrome.json -v ~/containers/chrome/:/home/chrome/chrome-profile -v /var/run/dbus:/var/run/dbus -v /etc/hosts:/etc/hosts -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v ~/Downloads:/home/chrome/Downloads --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name chrome aimvector/chrome-debug'
+docker run -d --net host --security-opt seccomp=~/containers/chrome/seccomp-chrome.json -v ~/containers/chrome/:/home/chrome/chrome-profile -v /var/run/dbus:/var/run/dbus -v /etc/hosts:/etc/hosts -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v ~/Downloads:/home/chrome/Downloads --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name chrome aimvector/chrome'
 
 #chromium contained.
 alias chromium='xhost local:root
@@ -164,3 +164,5 @@ find-az-ip(){
 }
 
 alias azip='find-az-ip'
+
+alias azcopy='docker run -it --rm aimvector/azcopy '
