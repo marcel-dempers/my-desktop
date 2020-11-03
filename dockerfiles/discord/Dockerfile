@@ -1,4 +1,4 @@
-FROM debian:sid
+FROM debian:buster
 RUN apt-get update && apt-get install -y wget \
 	libcanberra-gtk* \
 	libasound2 \
@@ -21,4 +21,14 @@ RUN mkdir /discord && cd /discord && \
 COPY start.sh .
 RUN chmod +x start.sh
 
-ENTRYPOINT ./start.sh
+# Add discord user
+#Note: 
+# hack: I use userid 1000 for chrome because user profile mount is added with userid 1000 
+# and discord user can have different id if I don't specify it.
+RUN groupadd -r discord && useradd -r -g discord -u 1000 -G audio,video discord \
+    && mkdir -p /home/discord/Downloads && chown -R discord:discord /home/discord
+
+USER discord
+
+ENTRYPOINT [ "discord" ]
+#ENTRYPOINT ./start.sh
