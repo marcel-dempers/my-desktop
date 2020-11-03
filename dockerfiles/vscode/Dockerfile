@@ -35,6 +35,9 @@ RUN apt-get update && apt-get -y install \
 	libxrender1 \
 	libxss1 \
 	libxtst6 \
+        libxcb-dri3-0 \
+        libdrm2 \
+        libgbm1 \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 

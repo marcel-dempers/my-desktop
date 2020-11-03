@@ -93,7 +93,7 @@ alias colorpic=gpick
 
 #discord contained.
 alias discord='xhost local:root
-docker run -d --rm -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/containers/discord/config:/root/.config/discord/ -e DISPLAY=unix$DISPLAY -v ~/Downloads:/home/root/Downloads --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm aimvector/discord'
+docker run -it --rm --privileged -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/containers/discord/config:/root/.config/discord/ -e DISPLAY=unix$DISPLAY -v ~/Downloads:/home/root/Downloads --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm aimvector/discord'
 
 #slack contained.
 alias slack='xhost local:root
