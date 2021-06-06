@@ -1,22 +1,60 @@
-FROM ubuntu:bionic-20191029 
+FROM ubuntu:bionic-20210325
 
-RUN apt-get update && \
-    apt-get install -y curl perl gnupg2 git htop bash lsb-release apt-transport-https ca-certificates
+ENV PATH /usr/share/bcc/tools:$PATH
+RUN sed -i "s#deb http://deb.debian.org/debian buster main#deb http://deb.debian.org/debian buster main contrib non-free#g" /etc/apt/sources.list
 
-#Install iovisor/bcc tools
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4052245BD4284CDD && \
-echo "deb https://repo.iovisor.org/apt/$(lsb_release -cs) $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/iovisor.list
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    clang \
+    curl \
+    gcc \
+    git \
+    g++ \
+    --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
 
-#install the docker-cli to extract PID info from pod with `docker inspect`
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-    echo 'deb [arch=amd64] https://download.docker.com/linux/debian buster stable' > /etc/apt/sources.list.d/docker.list
+# Install dependencies for libbcc
+# FROM: https://github.com/iovisor/bcc/blob/master/INSTALL.md#install-build-dependencies
+RUN apt-get update && apt-get install -y \
+    debhelper \
+    cmake \
+    libllvm3.9 \
+    llvm-dev \
+    libclang-dev \
+    libelf-dev \
+    bison \
+    flex \
+    libedit-dev \
+    clang-format \
+    python \
+    python3-pyroute2 \
+    luajit \
+    libluajit-5.1-dev \
+    arping \
+    iperf \
+    ethtool \
+    devscripts \
+    zlib1g-dev \
+    libfl-dev \
+    --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get -y install bcc-tools libbcc-examples linux-headers-$(uname -r) docker-ce-cli
+ENV BCC_VERSION v0.20.0
+
+RUN git clone --depth 1 --branch "$BCC_VERSION" https://github.com/iovisor/bcc.git /usr/src/bcc \
+	&& ( \
+		cd /usr/src/bcc \
+		&& mkdir build \
+		&& cd build \
+		&& cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
+		&& make \
+		&& make install \
+	) \
+	&& rm -rf /usr/src/bcc
 
 RUN mkdir /work
 WORKDIR /work
 
-RUN git clone --depth 1 https://github.com/brendangregg/FlameGraph && \
-    git clone --depth 1 https://github.com/iovisor/bcc
-
+RUN git clone --depth 1 https://github.com/brendangregg/FlameGraph
+  
 ENTRYPOINT ["/bin/bash"]
