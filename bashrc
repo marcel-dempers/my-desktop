@@ -42,9 +42,18 @@ docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/containers/shutter/.shu
 #powershell contained.
 alias powershell='docker run -it --rm --net host jess/powershell'
 
-#vscode contained.
+#vscode contained. #--security-opt seccomp=~/containers/vscode/seccomp-vscode.json \
 alias vs='xhost local:root
-docker run -d --net host --security-opt seccomp=~/containers/vscode/seccomp-vscode.json -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/Downloads:/home/user/Downloads -v ~/containers/vscode/:/home/user -v ~/personal/git:/home/user/personal/git -v ~/git:/home/user/git -e DISPLAY=unix$DISPLAY --device /dev/dri -v /dev/shm:/dev/shm aimvector/vscode'
+docker run -d --net host \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v ~/Downloads:/home/user/Downloads \
+  -v ~/containers/vscode/:/home/user \
+  -v ~/personal/git:/personal/git \
+  -v ~/git:/git \
+  --privileged \
+  -e DISPLAY=unix$DISPLAY \
+  --device /dev/dri \
+  aimvector/vscode'
 
 
 d () {
@@ -166,3 +175,6 @@ find-az-ip(){
 alias azip='find-az-ip'
 
 alias azcopy='docker run -it --rm aimvector/azcopy '
+source ~/kube-ps1/kube-ps1.sh
+source ~/kube-ps1/my-ps1.sh
+PROMPT_COMMAND="my_kube_ps1"
