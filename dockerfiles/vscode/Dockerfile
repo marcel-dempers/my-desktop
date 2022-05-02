@@ -38,6 +38,8 @@ RUN apt-get update && apt-get -y install \
         libxcb-dri3-0 \
         libdrm2 \
         libgbm1 \
+        libxshmfence1 \
+        libglu1 \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
