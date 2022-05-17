@@ -12,9 +12,30 @@ docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --de
 alias chrome='xhost local:root
 docker run -d --net host --security-opt seccomp=~/containers/chrome/seccomp-chrome.json -v ~/containers/chrome/:/home/chrome/chrome-profile -v /var/run/dbus:/var/run/dbus -v /etc/hosts:/etc/hosts -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v ~/Downloads:/home/chrome/Downloads --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name chrome aimvector/chrome'
 
-#chromium contained.
-alias chromium='xhost local:root
-docker run -d --net host --security-opt seccomp=~/containers/chromium/seccomp-chromium.json -v ~/containers/chromium/:/home/chromium/chromium-profile -v /var/run/dbus:/var/run/dbus -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v ~/Downloads:/home/chromium/Downloads -v /dev:/dev --device /dev/snd:/dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name chromium aimvector/chromium'
+#chromium contained. --security-opt seccomp=~/containers/chromium/seccomp-chromium.json \
+#alias chromium='xhost local:root 
+#docker run -d --net host --rm \
+#-v ~/containers/chromium/:/home/chromium/chromium-profile \
+#-v /var/run/dbus:/var/run/dbus \
+#-v /etc/localtime:/etc/localtime:ro \
+#-v /tmp/.X11-unix:/tmp/.X11-unix \
+#-e DISPLAY=unix$DISPLAY \
+#-v ~/Downloads:/home/chromium/Downloads \
+#-v /dev:/dev \
+#--privileged \
+#--device /dev/snd:/dev/snd \
+#--device /dev/dri \
+#-v /dev/shm:/dev/shm \
+#--name chromium aimvector/chromium'
+
+#wireshark contained.
+alias wireshark='docker run -d  --rm \
+    -v ${PWD}:/work \
+	-v /etc/localtime:/etc/localtime:ro \
+	-v /tmp/.X11-unix:/tmp/.X11-unix \
+	-e DISPLAY=unix$DISPLAY \
+	--name wireshark \
+	jess/wireshark'
 
 #skype contained.
 alias skype='xhost local:root
@@ -37,7 +58,7 @@ docker run -d --rm --net host -v /etc/hosts:/etc/hosts -v /tmp/.X11-unix:/tmp/.X
 
 #shutter contained.
 alias shutter='xhost local:root
-docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/containers/shutter/.shutter/:/root/.shutter -v ~/containers/shutter/plugins/:/usr/share/shutter/resources/system/plugins -e DISPLAY=unix$DISPLAY -v ~/Pictures:/home/root/Pictures --name shutter aimvector/shutter'
+docker run -d -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/containers/shutter/.shutter/:/root/.shutter -v ~/containers/shutter/plugins/:/usr/share/shutter/resources/system/plugins -e DISPLAY=unix$DISPLAY -v ~/Pictures:/home/root/Pictures aimvector/shutter'
 
 #powershell contained.
 alias powershell='docker run -it --rm --net host jess/powershell'
@@ -53,7 +74,7 @@ docker run -d --net host \
   --privileged \
   -e DISPLAY=unix$DISPLAY \
   --device /dev/dri \
-  aimvector/vscode'
+  aimvector/vscode:latest'
 
 
 d () {
