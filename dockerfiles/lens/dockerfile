@@ -1,0 +1,39 @@
+FROM debian:bullseye-slim
+
+RUN apt-get update -y && apt-get install -y curl
+
+#install lens dependencies
+RUN apt-get install -y \
+    libgtk-3-0 \
+    libnotify4 \
+    libnss3 \
+    libxss1 \
+    libxtst6 \
+    xdg-utils \
+    libatspi2.0-0 \
+    libsecret-1-0 \
+    libgbm1 \
+    libasound2 
+
+#install lens ide
+RUN curl -L https://api.k8slens.dev/binaries/Lens-5.5.4-latest.20220609.2.amd64.deb \
+    -o lens.deb && \
+    dpkg -i lens.deb
+
+ENV HOME /home/user
+RUN useradd --create-home --home-dir $HOME user \
+	&& chown -R user:user $HOME
+
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+WORKDIR $HOME
+
+CMD [ "start.sh" ]
+
+alias lens='xhost local:root
+docker run -it \
+--net host \
+-v /tmp/.X11-unix:/tmp/.X11-unix \
+-v ~/Downloads/production-config-jakie:/home/user/.kube/config \
+-e DISPLAY=unix$DISPLAY \
+--device /dev/dri aimvector/lens'
