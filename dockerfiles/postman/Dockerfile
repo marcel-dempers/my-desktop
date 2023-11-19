@@ -1,8 +1,8 @@
-FROM debian:jessie
+FROM debian:bullseye
 
 RUN apt-get update && apt-get install -y curl \
     libgtk2.0-0 \
-    libX11-xcb-dev \
+    libx11-xcb-dev \
     libxtst6 \
     libxss1 \
     libgconf-2-4 \
