@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -40,6 +40,7 @@ RUN apt-get update && apt-get -y install \
         libgbm1 \
         libxshmfence1 \
         libglu1 \
+        fonts-noto-color-emoji \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
