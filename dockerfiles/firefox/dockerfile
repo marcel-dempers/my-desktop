@@ -1,26 +1,14 @@
-FROM debian:sid-slim
-RUN apt-get update && apt-get install -y \
-	dirmngr \
-	gnupg \
-	--no-install-recommends \
-	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0AB215679C571D1C8325275B9BDB3D89CE49EC21 \
-	&& echo "deb http://ppa.launchpad.net/mozillateam/firefox-next/ubuntu xenial main" >> /etc/apt/sources.list.d/firefox.list \
-	&& apt-get update && apt-get install -y \
-	ca-certificates \
-	firefox \
-    wget \
-    libcanberra-gtk* \
-	hicolor-icon-theme \
-	libasound2 \
-	libgl1-mesa-dri \
-	libgl1-mesa-glx \
-	libdbus-1-3 \
-	libfontconfig1 \
-	--no-install-recommends \
-	&& rm -rf /var/lib/apt/lists/*
+FROM debian:bookworm-slim
 
-ENV LANG en-US
+RUN apt-get update && apt-get install -y wget
+RUN wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
+RUN echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
+RUN echo ' \n\
+	Package: * \n\
+	Pin: origin packages.mozilla.org \n\
+	Pin-Priority: 1000 \n\
+	' | tee /etc/apt/preferences.d/mozilla
 
-COPY local.conf /etc/fonts/local.conf
+RUN apt-get update && apt-get install -y firefox
 
 ENTRYPOINT [ "/usr/bin/firefox" ]

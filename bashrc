@@ -50,12 +50,6 @@ docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY --ne
 alias vbox='xhost local:root
 docker run -d --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /data/vbox:/hdd -v /dev/vboxdrv:/dev/vboxdrv -e DISPLAY=unix$DISPLAY --privileged -v /dev/:/dev/ -v ~/containers/vbox/machines:"/root/VirtualBox VMs" -v ~/containers/vbox/.config:/root/.config/VirtualBox -v ~/Downloads:/images --name virtualbox aimvector/virtualbox'
 
-
-#firefox contained.
-alias firefox='xhost local:root
-docker run -d --rm --net host -v /etc/hosts:/etc/hosts -v /tmp/.X11-unix:/tmp/.X11-unix -v /etc/localtime:/etc/localtime:ro -v ~/containers/firefox/data:/root/.mozilla -e DISPLAY=unix$DISPLAY -v ~/Downloads:/root/Downloads --device /dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name firefox aimvector/firefox'
-
-
 #shutter contained.
 alias shutter='xhost local:root
 docker run -d -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/containers/shutter/.shutter/:/root/.shutter -v ~/containers/shutter/plugins/:/usr/share/shutter/resources/system/plugins -e DISPLAY=unix$DISPLAY -v ~/Pictures:/home/root/Pictures aimvector/shutter'
@@ -175,13 +169,8 @@ alias wireshark='docker run -d -v $PWD:/work -w /work -v /etc/localtime:/etc/loc
 alias tcpdump='xhost local:root
 docker run -d --rm --net host -v /etc/localtime:/etc/localtime:ro -v $PWD:/tcpdump aimvector/tcpdump'
 
-
 #awscli contained.
 alias awscli='docker run -it --rm -v ~/containers/awscli/:/root/.aws/ -v $PWD:/work --entrypoint "bash" aimvector/awscli'
-source ~/kube-ps1/kube-ps1.sh
-source ~/kube-ps1/my-ps1.sh
-PROMPT_COMMAND="my_kube_ps1"
-
 
 geo-ip-func(){
 	curl https://ipapi.co/$1/json/ | jq
@@ -196,6 +185,14 @@ find-az-ip(){
 alias azip='find-az-ip'
 
 alias azcopy='docker run -it --rm aimvector/azcopy '
+#source ~/kube-ps1/kube-ps1.sh
+#source ~/kube-ps1/my-ps1.sh
+#PROMPT_COMMAND="my_kube_ps1"
 source ~/kube-ps1/kube-ps1.sh
 source ~/kube-ps1/my-ps1.sh
 PROMPT_COMMAND="my_kube_ps1"
+
+#firefox contained.
+alias firefox='xhost local:root
+docker run -d --rm --net host -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/marcel/containers/firefox/data:/root/.mozilla -e DISPLAY=unix$DISPLAY -v /home/marcel/Downloads:/root/Downloads --device /dev/snd --device /dev/dri -v /dev/shm:/dev/shm --name firefox aimvector/firefox'
+
