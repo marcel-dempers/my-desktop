@@ -68,6 +68,7 @@ docker run -d --net host \
   --privileged \
   -e DISPLAY=unix$DISPLAY \
   --device /dev/dri \
+  --ipc=host \
   aimvector/vscode:latest'
 
 
